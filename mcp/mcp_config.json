@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "binaryformatter-parser": {
+      "command": "/path/to/python",
+      "args": ["/path/to/BinaryformatterParse/mcp/mcp_server.py"],
+      "env": {
+        "BINARYFORMATTER_PARSER_PATH": "/path/to/BinaryformatterParse/binaryformatter_parser"
+      }
+    }
+  }
+}
