@@ -1,0 +1,32 @@
+name: Build for Termux (ARMv7)
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:  # این رو فعال می‌کنه تا خودتون دستی اجراش کنید
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.23'  # یا هر نسخه جدیدتر
+
+      - name: Build for ARMv7 (Linux/Android)
+        run: |
+          # GOOS=linux (چون اندروید کرنل لینوکسه)
+          # GOARCH=arm (معماری ۳۲ بیت)
+          # GOARM=7 (نسخه ۷ معماری arm)
+          GOOS=linux GOARCH=arm GOARM=7 go build -ldflags="-s -w" -o BinaryformatterParse-armv7 .
+
+      - name: Upload compiled binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: binaryformatter-armv7
+          path: BinaryformatterParse-armv7
